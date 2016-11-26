@@ -1,0 +1,3 @@
+export CIRCLE_CI_TOKEN=fill_me_in
+export GH_TOKEN=fill_me_in
+export TOGGL_TOKEN=fill_me_in
