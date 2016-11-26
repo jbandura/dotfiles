@@ -270,12 +270,6 @@ let g:airline_mode_map = {
       \ }
 
 "
-" Numbertoggle
-"
-
-let g:NumberToggleTrigger="<C-l>"
-
-"
 " MarkdownPreview
 "
 
@@ -286,10 +280,6 @@ let g:mkdp_path_to_chrome = "open -a Google\\ Chrome"
 "
 
 let g:neomake_javascript_enabled_makers = ['eslint']
-let g:neomake_javascript_eslint_maker = {
-\ 'args': ['--no-color', '--format', 'compact'],
-\ 'errorformat': '%f: line %l\, col %c\, %m'
-\ }
 let g:neomake_javascript_eslint_exe = $PWD .'/node_modules/.bin/eslint'
 
 "
