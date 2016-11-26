@@ -55,7 +55,7 @@ filetype on
 " COLORSCHEME & ADJUSTMENTS
 "------------------------------
 
-colorscheme gruvbox
+colorscheme neodark
 set background=dark
 
 hi LineNr       guibg=00 guifg=#928374

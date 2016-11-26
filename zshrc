@@ -1,5 +1,7 @@
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
+export TERM=xterm-256color
+source ~/.exports
 
 # Exports
 export NVIM_TUI_ENABLE_TRUE_COLOR=1

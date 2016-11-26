@@ -1,3 +1,5 @@
 export CIRCLE_CI_TOKEN=fill_me_in
 export GH_TOKEN=fill_me_in
 export TOGGL_TOKEN=fill_me_in
+export TOGGL_USER_ID=fill_me_in
+export TOGGL_WORKSPACE_ID=fill_me_in
