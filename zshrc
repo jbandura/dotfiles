@@ -145,6 +145,7 @@ alias gcm="git commit"
 ################################
 alias es="ember s"
 alias et="ember t"
+alias eb="ember build"
 
 
 

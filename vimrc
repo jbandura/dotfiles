@@ -55,13 +55,13 @@ filetype on
 " COLORSCHEME & ADJUSTMENTS
 "------------------------------
 
-colorscheme neodark
 set background=dark
+colorscheme hybrid
 
 hi LineNr       guibg=00 guifg=#928374
-hi VertSplit    guibg=236 guifg=#505050
-hi Search guibg=#282828 guifg=#d3869b gui=underline
-hi IncSearch guibg=#282828 guifg=#d3869b gui=underline
+hi VertSplit    guibg=00 guifg=#928374
+hi Search guibg=#252f38 guifg=#ffffff gui=underline
+hi IncSearch guibg=#252f38 guifg=#ffffff gui=underline
 hi CursorLineNr guibg=00 guifg=05
 hi SignColumn guibg=00
 " GIT GUTTER
@@ -136,7 +136,7 @@ nmap :ed :edit %:p:h/
 "map space to :
 nmap <space> :
 " Familiar commands for file/symbol browsing
-map <D-p> :CtrlP<cr>
+map <C-p> :FZF<cr>
 map <C-r> :CtrlPBufTag<cr>
 
 " Mappings for custom functions
@@ -146,6 +146,10 @@ nmap ,etf :call EmberRunNearest()<cr>
 nmap ,et :call EmberTestGlobal()<cr>
 nmap ,rtc :call RunCurrentRspecVimux()<cr>
 nmap ,rt :call RunAllRspecVimux()<cr>
+
+" Mappings for latex
+nmap ,cp :!pdflatex %:t<cr>
+nmap ,cpy :!pdflatex -shell-escape %:t<cr>
 
 " quick semicolon insertion at the end of line
 nmap <leader>; A;<esc>
@@ -159,6 +163,8 @@ nmap :cr :let @+ = expand("%")<cr>
 "set encoding=utf-8 " Necessary to show Unicode glyphs
 "set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline)
 "set fillchars+=stl:\ ,stlnc:\
+"
+let g:tern_map_keys=1
 
 
 
@@ -239,12 +245,22 @@ let g:ctrlp_custom_ignore = {
 \ 'link': 'some_bad_symbolic_links',
 \ }
 
+
+
 " I don't want to pull up these folders/files when calling CtrlP
 set wildignore+=*/vendor/**
+set wildignore+=*/node_modules/**
+set wildignore+=*/bower_components/**
 set wildignore+=*/public/forum/**
 set wildignore+=*/application/libraries/**
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 set wildignore+=*/dist/**
+"
+"
+" FZF
+"
+
+let $FZF_DEFAULT_COMMAND= 'ag -g ""'
 
 "
 " EasyMotion
@@ -285,24 +301,33 @@ let g:neomake_javascript_eslint_exe = $PWD .'/node_modules/.bin/eslint'
 "
 " Syntastic
 "
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+"set statusline+=%#warningmsg#
+"set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%*
 
-let g:syntastic_quiet_messages = { "level": [] }
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-"let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+"let g:syntastic_quiet_messages = { "level": [] }
+"let g:syntastic_always_populate_loc_list = 1
+"let g:syntastic_auto_loc_list = 1
+""let g:syntastic_check_on_open = 1
+"let g:syntastic_check_on_wq = 0
 
-let b:syntastic_javascript_eslint_exec = '/node-modules/.bin/eslint'
+"let b:syntastic_javascript_eslint_exec = '/node-modules/.bin/eslint'
 
-let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_scss_checkers = ['scss_lint']
+"let g:syntastic_javascript_checkers = ['eslint']
+"let g:syntastic_scss_checkers = ['sass-lint']
+
+"
+" Table Mode
+"
+let g:table_mode_header_fillchar="="
+let g:table_mode_corner_corner='+'
+
+" VIM polyglot
+let g:polyglot_disabled = ['latex-box', 'latex', 'tex']
+let g:tex_conceal = ""
 
 
-
-"------------------------------
+"=============================
 " § PATHOGEN
 "------------------------------
 "execute pathogen#infect()
@@ -312,6 +337,7 @@ let g:syntastic_scss_checkers = ['scss_lint']
 "------------------------------
 
 set rtp+=~/.vim/bundle/Vundle.vim
+set rtp+=/usr/local/opt/fzf
 call vundle#begin()
 
 Plugin 'VundleVim/Vundle.vim'
@@ -324,11 +350,17 @@ Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'morhetz/gruvbox'
 Plugin 'altercation/vim-colors-solarized'
+Plugin 'rakr/vim-one'
+Plugin 'w0ng/vim-hybrid'
 
 "
 " PRODUCTIVITY
 "
-Plugin 'ctrlpvim/ctrlp.vim'
+"Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'dsawardekar/ember.vim'
+Plugin 'dsawardekar/portkey'
+Plugin 'junegunn/fzf.vim'
+Plugin 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plugin 'Raimondi/delimitMate'
 Plugin 'mattn/emmet-vim'
 Plugin 'Shutnik/jshint2.vim'
@@ -358,6 +390,8 @@ Plugin 'kana/vim-textobj-user'
 Plugin 'nelstrom/vim-textobj-rubyblock'
 Plugin 'Yggdroot/indentLine'
 Plugin 'iamcco/markdown-preview.vim'
+Plugin 'junegunn/goyo.vim'
+Plugin 'itspriddle/vim-marked'
 
 "
 " SYNTAX
@@ -375,6 +409,8 @@ Plugin 'mustache/vim-mustache-handlebars'
 Plugin 'kchmck/vim-coffee-script'
 Plugin 'mxw/vim-jsx'
 Plugin 'vim-scripts/AfterColors.vim'
+Plugin 'leafgarland/typescript-vim'
+"Plugin 'lervag/vimtex'
 
 
 call vundle#end()            " required
